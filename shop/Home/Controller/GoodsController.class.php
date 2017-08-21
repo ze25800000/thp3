@@ -6,10 +6,10 @@ use Think\Controller;
 
 class GoodsController extends Controller {
     function showlist() {
-        echo '列表展示';
+        $this->display();
     }
 
     function detail() {
-        echo '商品详情';
+        $this->display();
     }
 }
