@@ -1,7 +1,6 @@
 <?php
 
 namespace Admin\Controller;
-
 use Think\Controller;
 
 class GoodsController extends Controller {
@@ -13,7 +12,7 @@ class GoodsController extends Controller {
         $this->display();
     }
 
-    public function upd() {
+    public function udp() {
         $this->display();
     }
 }
