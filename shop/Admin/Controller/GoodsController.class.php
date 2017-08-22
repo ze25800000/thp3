@@ -1,6 +1,7 @@
 <?php
 
 namespace Admin\Controller;
+
 use Model\EnglishModel;
 use Model\GoodsModel;
 use Think\Controller;
@@ -8,14 +9,13 @@ use Think\Controller;
 class GoodsController extends Controller {
     public function showlist() {
         $goods = new GoodsModel();
-//        $english = new EnglishModel();
-//        dump($english);
-
-        //1.实例化父类Model对象
-        $obj = D();
-        //2.实例化Model对象,同时操作sw_user数据表
-        $obj1=D('User');
-        dump($obj1);
+        //1,查询数据表 全部字段、全部信息
+        $info  = $goods->select();
+        //2,显示主键id等于9的id信息
+        $info = $goods->select(9);
+        //3,查询id值,查询一条记录信息
+        $info = $goods->select('20, 30,40');
+        $this->assign('info', $info);
         $this->display();
     }
 
