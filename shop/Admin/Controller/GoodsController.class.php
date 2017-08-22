@@ -1,10 +1,13 @@
 <?php
 
 namespace Admin\Controller;
+use Model\GoodsModel;
 use Think\Controller;
 
 class GoodsController extends Controller {
     public function showlist() {
+        $goods = new GoodsModel();
+        dump($goods);
         $this->display();
     }
 
