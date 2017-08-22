@@ -1,13 +1,15 @@
 <?php
 
 namespace Admin\Controller;
+use Model\EnglishModel;
 use Model\GoodsModel;
 use Think\Controller;
 
 class GoodsController extends Controller {
     public function showlist() {
         $goods = new GoodsModel();
-        dump($goods);
+        $english = new EnglishModel();
+        dump($english);
         $this->display();
     }
 
