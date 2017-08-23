@@ -20,15 +20,13 @@ class GoodsController extends Controller {
     }
 
     public function tianjia() {
-        //1.数组方式添加数据
-        $goods = D('Goods');
-        $arr   = [
-            'goods_name'   => '黑莓手机',
-            'goods_price'  => 3400,
-            'goods_number' => 120
-        ];
-        $d     = $goods->add($arr);
-        var_dump($d);
+        //2.AR方式添加数据
+        $goods              = D('Goods');
+        $goods->goods_name  = "小米手机";
+        $goods->goods_price = 2000;
+        $goods->weight      = 120;
+        $z = $goods->add();
+        echo $z;
         $this->display();
     }
 
