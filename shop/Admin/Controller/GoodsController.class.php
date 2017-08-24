@@ -20,17 +20,20 @@ class GoodsController extends Controller {
     }
 
     public function tianjia() {
-        //2.AR方式添加数据
-        $goods              = D('Goods');
-        $goods->goods_name  = "小米手机";
-        $goods->goods_price = 2000;
-        $goods->weight      = 120;
-        $z = $goods->add();
-        echo $z;
         $this->display();
     }
 
-    public function udp() {
+    public function upd() {
+        //修改数据库数据
+        //数据库必须设置条件，主键id或者where（）方法，二选一即可，否则执行失败
+        $goods               = D('Goods');
+        $goods->goods_name   = '见过pro';
+        $goods->goods_price  = 1200;
+        $goods->goods_weight = 200;
+        $result              = $goods->where('goods_id=164')->save();
+        //mysql数据库允许一次性修改全部记录信息
+        //现实生产中不能一次性修改数据表的全部记录信息
+        dump($result);
         $this->display();
     }
 }
