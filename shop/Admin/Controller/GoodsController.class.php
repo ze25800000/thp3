@@ -34,17 +34,19 @@ class GoodsController extends Controller {
         }
     }
 
-    public function upd() {
-        //修改数据库数据
-        //数据库必须设置条件，主键id或者where（）方法，二选一即可，否则执行失败
-        $goods               = D('Goods');
-        $goods->goods_name   = '见过pro';
-        $goods->goods_price  = 1200;
-        $goods->goods_weight = 200;
-        $result              = $goods->where('goods_id=164')->save();
-        //mysql数据库允许一次性修改全部记录信息
-        //现实生产中不能一次性修改数据表的全部记录信息
-        dump($result);
-        $this->display();
+    public function upd($goods_id) {
+        $goods = D('Goods');
+        if (!empty($_POST)) {
+            $z = $goods->save($_POST);
+            if ($z) {
+                $this->redirect('showlist', [], 2, '修改商品成功');
+            } else {
+                $this->redirect('upd', ['goods_id' => $goods_id], 2, '修改商品失败');
+            }
+        } else {
+            $info = $goods->find($goods_id);
+            $this->assign('info', $info);
+            $this->display();
+        }
     }
 }
