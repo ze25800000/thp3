@@ -10,17 +10,28 @@ class GoodsController extends Controller {
     public function showlist() {
         $goods = new GoodsModel();
         //1,查询数据表 全部字段、全部信息
-        $info = $goods->select();
+        $info = $goods->order('goods_id desc')->select();
         //2,显示主键id等于9的id信息
-        $info = $goods->select(9);
+//        $info = $goods->select(9);
         //3,查询id值,查询一条记录信息
-        $info = $goods->select('20, 30,40');
+//        $info = $goods->select('20, 30,40');
         $this->assign('info', $info);
         $this->display();
     }
 
     public function tianjia() {
-        $this->display();
+        $goods = D('Goods');
+        if (!empty($_POST)) {
+            //收集表单信息
+            $z = $goods->add($_POST);
+            if ($z) {
+                $this->redirect('showlist', [], 2, '添加商品成功');
+            } else {
+                $this->redirect('tianjia', [], 2, '添加商品失败');
+            }
+        } else {
+            $this->display();
+        }
     }
 
     public function upd() {
