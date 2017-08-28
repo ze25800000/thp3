@@ -5,6 +5,7 @@ namespace Admin\Controller;
 use Model\EnglishModel;
 use Model\GoodsModel;
 use Think\Controller;
+use Think\Upload;
 
 class GoodsController extends Controller {
     public function showlist() {
@@ -22,6 +23,16 @@ class GoodsController extends Controller {
     public function tianjia() {
         $goods = D('Goods');
         if (!empty($_POST)) {
+            if ($_FILES['goods_pic']['error'] === 0) {
+                $cfg = [
+                    'rootPath' => './Public/upload/' //保存根路径
+                ];
+                $up  = new Upload($cfg);
+                $result   = $up->uploadOne($_FILES['goods_pic']);
+                //附件保存到数据库中，保存路径名即可
+                $bigpicname             = $up->rootPath . $result['savepath'] . $result['savename'];
+                $_POST['goods_big_img'] = $bigpicname;
+            }
             //收集表单信息
             $z = $goods->add($_POST);
             if ($z) {
