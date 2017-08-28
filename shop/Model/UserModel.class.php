@@ -16,9 +16,9 @@ class UserModel extends Model {
         ['password2', 'password', '确认密码与密码保持一致', 0, 'confirm'],
         ['user_email', 'email', '邮箱格式不正确'],
         ['user_qq', 'number', 'qq号码为数字信息'],
-        ['user_qq', '5-12', 'qq号码长度为5-12位', 0, 'length'],
+        ['user_qq', '5,12', 'qq号码长度为5-12位', 0, 'length'],
         ['user_xueli', '2,3,4,5', '学习必须选择一个', 0, 'in'],
-        ['user_hobby', 'check_hobby', '至少学则两个或者以上', 0, 'callback']
+        ['user_hobby', 'check_hobby', '爱好至少学则两个或者以上', 1, 'callback']
     ];
 
     protected function check_hobby($arg) {

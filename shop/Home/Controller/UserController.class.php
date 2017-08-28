@@ -13,16 +13,17 @@ class UserController extends Controller {
     public function register() {
         $user = new UserModel();
         if (!empty($_POST)) {
-//            $_POST['user_hobby'] = implode(',', $_POST['user_hobby']);
-//            $z                   = $user->add($_POST);
             $data = $user->create();
             if ($data) {
-                echo 'success';
+                $_POST['user_hobby'] = implode(',', $_POST['user_hobby']);
+                $z                   = $user->add($_POST);
+                if ($z) {
+                    $this->redirect('Index/index');
+                }
             } else {
-                dump($user->getError());
+                $this->assign('errorInfo', $user->getError());
             }
-        } else {
-            $this->display();
         }
+        $this->display();
     }
 }
