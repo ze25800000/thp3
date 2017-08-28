@@ -5,6 +5,7 @@ namespace Admin\Controller;
 use Model\EnglishModel;
 use Model\GoodsModel;
 use Think\Controller;
+use Think\Image;
 use Think\Upload;
 
 class GoodsController extends Controller {
@@ -24,14 +25,26 @@ class GoodsController extends Controller {
         $goods = D('Goods');
         if (!empty($_POST)) {
             if ($_FILES['goods_pic']['error'] === 0) {
-                $cfg = [
+                $cfg    = [
                     'rootPath' => './Public/upload/' //保存根路径
                 ];
-                $up  = new Upload($cfg);
-                $result   = $up->uploadOne($_FILES['goods_pic']);
+                $up     = new Upload($cfg);
+                $result = $up->uploadOne($_FILES['goods_pic']);
                 //附件保存到数据库中，保存路径名即可
                 $bigpicname             = $up->rootPath . $result['savepath'] . $result['savename'];
                 $_POST['goods_big_img'] = $bigpicname;
+                //给上传好的图片制作缩略图
+                $im = new Image();
+                //打开原图片
+                $im->open($bigpicname);
+                //为原图片制作缩略图
+                $im->thumb(125, 125);
+                //把制作好的缩略图报存到服务器
+                //缩略图和原图在同一位置
+                $smallpicname = $up->rootPath . $result['savepath'] . "small_" . $result['savename'];
+                $im->save($smallpicname);
+                $_POST['goods_small_img'] = $smallpicname;
+
             }
             //收集表单信息
             $z = $goods->add($_POST);
