@@ -10,7 +10,18 @@ class ManagerController extends Controller {
         if (!empty($_POST)) {
             $vry = new Verify();
             if ($vry->check($_POST['captcha'])) {
-                echo '验证码正确';
+                $userpwd = [
+                    'admin_user' => $_POST['mg_name'],
+                    'admin_psd'  => $_POST['mg_pwd']
+                ];
+                $info    = D('Manager')->where($userpwd)->find();
+                if ($info) {
+                    session('admin_name', $info['mg_name']);
+                    session('admin_id', $info['mg_id']);
+                    $this->redirect('index/index');
+                } else {
+                    echo '用户名或密码错误';
+                }
             } else {
                 echo '错误';
             }
@@ -18,7 +29,8 @@ class ManagerController extends Controller {
         $this->display();
     }
 
-    public function verifyImg() {
+    public
+    function verifyImg() {
         $cfg  = [
             'imageH'   => 35,
             'imageW'   => 90,
