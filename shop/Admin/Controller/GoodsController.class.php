@@ -11,12 +11,18 @@ use Think\Upload;
 class GoodsController extends Controller {
     public function showlist() {
         $goods = new GoodsModel();
-        //1,查询数据表 全部字段、全部信息
-        $info = $goods->order('goods_id desc')->select();
-        //2,显示主键id等于9的id信息
-//        $info = $goods->select(9);
-        //3,查询id值,查询一条记录信息
-//        $info = $goods->select('20, 30,40');
+        //实现数据分页
+        //h获取从条数、每页显示条数设置
+        $cnt      = $goods->count();//获得总条数
+        $per      = 7;
+        $page_obj = new \Tools\Page($cnt, $per);
+        //制作一条sql语句，获得每页数据
+        $sql  = "select * from sw_goods order by goods_id desc ".$page_obj->limit;
+        $info = $goods->query($sql);
+        //制作页吗列表
+        $pagelist = $page_obj->fpage([3,4,5,6,7,8]);
+
+        $this->assign('pagelist', $pagelist);
         $this->assign('info', $info);
         $this->display();
     }
