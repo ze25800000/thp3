@@ -11,8 +11,8 @@ class ManagerController extends Controller {
             $vry = new Verify();
             if ($vry->check($_POST['captcha'])) {
                 $userpwd = [
-                    'admin_user' => $_POST['mg_name'],
-                    'admin_psd'  => $_POST['mg_pwd']
+                    'mg_name' => $_POST['admin_user'],
+                    'mg_pwd'  => $_POST['admin_psd']
                 ];
                 $info    = D('Manager')->where($userpwd)->find();
                 if ($info) {
