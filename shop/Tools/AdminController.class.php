@@ -10,8 +10,14 @@ class AdminController extends Controller {
         //当前请求的控制器-操作方法
         $nowac = CONTROLLER_NAME . "-" . ACTION_NAME;
         //获得当前用户对应角色的权限列表信息
-        $admin_id   = session('admin_id');
         $admin_name = session('admin_name');
+        $admin_id   = session('admin_id');
+        $rang_ac    = "Manager-login,Manager-verifyImg";
+        if (empty($admin_id) && strpos($rang_ac, $nowac) === false) {
+//            $this->redirect('Manager/login');
+            $js = "<script>window.top.location.href='/shop/index.php/Admin/Manager/login';</script>";
+            echo $js;
+        }
         $admin_info = D('Manager')->find($admin_id);
         //角色信息
         $role_id   = $admin_info['mg_role'];

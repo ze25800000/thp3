@@ -29,8 +29,12 @@ class ManagerController extends AdminController {
         $this->display();
     }
 
-    public
-    function verifyImg() {
+    public function logout() {
+        session('[destroy]');
+        $this->redirect('login');
+    }
+
+    public function verifyImg() {
         $cfg  = [
             'imageH'   => 35,
             'imageW'   => 90,
