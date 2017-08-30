@@ -2,9 +2,9 @@
 
 namespace Admin\Controller;
 
-use Think\Controller;
+use Tools\AdminController;
 
-class AuthController extends Controller {
+class AuthController extends AdminController {
     //列表展示
     public function showlist() {
         $info = D('Auth')->order('auth_path asc')->select();

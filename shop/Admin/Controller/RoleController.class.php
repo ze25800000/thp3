@@ -3,9 +3,9 @@
 namespace Admin\Controller;
 
 use Model\RoleModel;
-use Think\Controller;
+use Tools\AdminController;
 
-class RoleController extends Controller {
+class RoleController extends AdminController {
     public function showlist() {
         $info = D('Role')->select();
         $this->assign('info', $info);

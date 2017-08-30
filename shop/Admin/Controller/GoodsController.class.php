@@ -2,13 +2,12 @@
 
 namespace Admin\Controller;
 
-use Model\EnglishModel;
 use Model\GoodsModel;
-use Think\Controller;
 use Think\Image;
 use Think\Upload;
+use Tools\AdminController;
 
-class GoodsController extends Controller {
+class GoodsController extends AdminController {
     public function showlist() {
         $goods = new GoodsModel();
         //实现数据分页

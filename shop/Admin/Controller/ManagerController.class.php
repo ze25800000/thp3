@@ -2,10 +2,10 @@
 
 namespace Admin\Controller;
 
-use Think\Controller;
 use Think\Verify;
+use Tools\AdminController;
 
-class ManagerController extends Controller {
+class ManagerController extends AdminController {
     public function login() {
         if (!empty($_POST)) {
             $vry = new Verify();
